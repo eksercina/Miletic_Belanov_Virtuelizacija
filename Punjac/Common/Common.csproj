@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Contracts\ChargingSample.cs" />
     <Compile Include="Contracts\Measurement.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="IChargingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationFaultcs.cs" />
