@@ -21,7 +21,7 @@ namespace Common
         public string Message { get; }
         public string VehicleId { get; }
         public int RowIndex { get; }
-        public string Type { get; }  // VoltageSpike, CurrentSpike, PowerFactorWarning
+        public string Type { get; }
 
         public WarningEventArgs(string message, string vehicleId, int rowIndex, string type)
         {
