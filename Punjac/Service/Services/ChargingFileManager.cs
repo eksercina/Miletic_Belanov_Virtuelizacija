@@ -80,12 +80,12 @@ namespace Service.Services
             {
                 if (disposing)
                 {
-                    Console.WriteLine($"[DISPOSE] Zatvaram resurse za vozilo: {_currentVehicleId ?? "N/A"}");
+                    Console.WriteLine($"[DISPOSE] Closing resources for the vehicle: {_currentVehicleId ?? "N/A"}");
 
                     try { _sessionWriter?.Dispose(); } catch { }
                     try { _rejectsWriter?.Dispose(); } catch { }
 
-                    Console.WriteLine("[DISPOSE] StreamWriter-i uspešno zatvoreni.");
+                    Console.WriteLine("[DISPOSE] StreamWriters successfully closed.");
                 }
 
                 _sessionWriter = null;
