@@ -45,9 +45,14 @@ namespace Service.Services
         public void PushSample(ChargingSample sample)
         {
             if (sample == null)
-                throw new FaultException<ValidationFault>(new ValidationFault("Sample is null!"));
+                throw new FaultException<ValidationFault>(new ValidationFault("Sample is null!"), new FaultReason("Sample is null!"));
+            if (sample.Timestamp == default)
+                throw new FaultException<ValidationFault>(new ValidationFault("Invalid Timestamp!"), new FaultReason("Invalid Timestamp!"));
 
-            ValidateSample(sample);
+            if (sample.Voltage.Avg <= 0 || sample.Current.Avg <= 0 || sample.Frequency.Avg <= 0)
+                
+                throw new FaultException<ValidationFault>(new ValidationFault("Voltage, current and frequency values must be greater than 0!"), new FaultReason("Voltage, current and frequency values must be greater than 0!"));
+
             sample.VehicleId = _currentVehicleId;
 
             _fileManager.SaveSample(sample);
@@ -115,15 +120,7 @@ namespace Service.Services
             return 0;
         }
 
-        private void ValidateSample(ChargingSample s)
-        {
-            if (s.Timestamp == default)
-                throw new FaultException<ValidationFault>(new ValidationFault("Invalid Timestamp!"));
-
-            if (s.Voltage.Avg <= 0 || s.Current.Avg <= 0 || s.Frequency.Avg <= 0)
-                throw new FaultException<ValidationFault>(new ValidationFault("Voltage, current and frequency values must be greater than 0!"));
-        }
-
+      
         public void Dispose()
         {
             _fileManager?.Dispose();
